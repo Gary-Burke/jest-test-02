@@ -1,0 +1,22 @@
+{
+  "name": "jest-test-02",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000j\u0000e\u0000s\u0000t\u0000-\u0000t\u0000e\u0000s\u0000t\u0000-\u00000\u00002\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gary-Burke/jest-test-02.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gary-Burke/jest-test-02/issues"
+  },
+  "homepage": "https://github.com/Gary-Burke/jest-test-02#readme",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
