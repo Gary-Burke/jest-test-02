@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 
-const { game, newGame, showScore } = require("../game");
+const { game, newGame, showScore, addTurn } = require("../game");
 
 
 beforeAll(() => {
@@ -38,11 +38,11 @@ describe("newGame function works correctly", () => {
     test("should set game score to zero", () => {
         expect(game.score).toEqual(0);
     });
+    test("should be one move in the computer's game array", () => {
+        expect(game.currentGame.length).toBe(1);
+    });
     test("should clear playerMoves", () => {
         expect(game.playerMoves).toEqual([]);
-    });
-    test("should clear currentGame", () => {
-        expect(game.currentGame).toEqual([]);
     });
     test("should display 0 for the element with id score", () => {
         expect(document.getElementById("score").innerText).toEqual(0);
