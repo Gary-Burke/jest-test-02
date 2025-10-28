@@ -2,14 +2,18 @@
  * @jest-environment jsdom
  */
 
-const { game, newGame, showScore, addTurn, lightsOn } = require("../game");
+const {
+    game,
+    newGame,
+    showScore,
+    addTurn,
+    lightsOn,
+} = require("../game");
 
 beforeAll(() => {
     let fs = require("fs");
     let fileContents = fs.readFileSync("index.html", "utf-8");
-    document.open();
-    document.write(fileContents);
-    document.close();
+    document.body.innerHTML = fileContents;
 });
 
 describe("game object contains correct keys", () => {
@@ -49,5 +53,28 @@ describe("newGame works correctly", () => {
     });
     test("should add one move to the computer's game array", () => {
         expect(game.currentGame.length).toBe(1);
+    });
+});
+
+describe("gamepay works correctly", () => {
+    beforeEach(() => {
+        game.currentGame = [];
+        game.playerMoves = [];
+        game.score = 0;
+        addTurn();
+    });
+    afterEach(() => {
+        game.currentGame = [];
+        game.playerMoves = [];
+        game.score = 0;        
+    });
+    test("addTurn adds a new turn to the game", () => {
+        addTurn();
+        expect(game.currentGame.length).toBe(2);
+    });
+    test("should add correct class to light up the buttons", () => {
+        let button = document.getElementById(game.currentGame[0]);
+        lightsOn(game.currentGame[0]);
+        expect(button.classList).toContain("light");
     });
 });
