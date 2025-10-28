@@ -4,10 +4,20 @@
 
 const { game, newGame, showScore, addTurn, lightsOn, showTurns, playerTurn } = require("../game");
 
+jest.spyOn(window, "alert").mockImplementation(() => { });
+
 beforeAll(() => {
     let fs = require("fs");
     let fileContents = fs.readFileSync("index.html", "utf-8");
     document.body.innerHTML = fileContents;
+});
+
+describe("pre-game", () => {
+    test("clicking buttons before newGame should fail", () => {
+        game.lastButton = "";
+        document.getElementById("button2").click();
+        expect(game.lastButton).toEqual("");
+    });
 });
 
 describe("game object contains correct keys", () => {
@@ -29,6 +39,15 @@ describe("game object contains correct keys", () => {
     test("turnNumber key exists", () => {
         expect("turnNumber" in game).toBe(true);
     });
+    test("lastButton key exists", () => {
+        expect("lastButton" in game).toBe(true);
+    });
+    test("turnInProgress key exists", () => {
+        expect("turnInProgress" in game).toBe(true);
+    });
+    test("turnInProgress key value is false", () => {
+        expect("turnInProgress" in game).toBe(true);
+    });
 });
 
 describe("newGame works correctly", () => {
@@ -38,6 +57,12 @@ describe("newGame works correctly", () => {
         game.currentGame = ["button1", "button2"];
         document.getElementById("score").innerText = "42";
         newGame();
+    });
+    test("expect data-listener to be true", () => {
+        const elements = document.getElementsByClassName("circle");
+        for (let element of elements) {
+            expect(element.getAttribute("data-listener")).toEqual("true");
+        }
     });
     test("should set game score to zero", () => {
         expect(game.score).toEqual(0);
@@ -50,13 +75,6 @@ describe("newGame works correctly", () => {
     });
     test("should add one move to the computer's game array", () => {
         expect(game.currentGame.length).toBe(1);
-    });
-    test("expect data-listener to be true", () => {
-        newGame();
-        const elements = document.getElementsByClassName("circle");
-        for (let element of elements) {
-            expect(element.getAttribute("data-listener")).toEqual("true");
-        }
     });
 });
 
